@@ -1,0 +1,34 @@
+{
+  "kruskal_max_escalation": {
+    "statistic": 4.229250148411977,
+    "p_value": 0.23774965821975444
+  },
+  "mann_whitney_A_vs_B": {
+    "statistic": 92.5,
+    "p_value": 0.23677961878494136
+  },
+  "mann_whitney_A_vs_C": {
+    "statistic": 91.0,
+    "p_value": 0.2753326056180514
+  },
+  "mann_whitney_A_vs_D": {
+    "statistic": 106.0,
+    "p_value": 0.04955273568746379
+  },
+  "chi2_nuclear_use": {
+    "statistic": 0.3356643356643357,
+    "p_value": 0.9531871701205018,
+    "dof": 3
+  },
+  "cohens_d_A_vs_B": {
+    "d": 0.7554515341349792
+  },
+  "cohens_d_A_vs_C": {
+    "d": 1.1101103646273631
+  },
+  "cohens_d_A_vs_D": {
+    "d": 1.3759371450971938
+  },
+  "eta_squared_condition": 0.09998631297547249,
+  "eta_squared_model": 0.7128346751814977
+}
