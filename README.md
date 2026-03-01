@@ -1,4 +1,4 @@
-# The Prompt Is the War: Goal Architecture as the Primary Determinant of Strategic Behavior in LLM Nuclear Simulations
+# The Prompt Is the War: Goal Architecture as a Significant and Designable Determinant of Strategic Behavior in LLM Nuclear Simulations
 
 ## Overview
 
@@ -8,11 +8,13 @@ Recent studies report that frontier LLMs deploy nuclear weapons in up to 95% of 
 
 ## Key Findings
 
-- **Prompt architecture determines behavior**: Modifying only the goal-framing portion of the system prompt, while holding all simulation mechanics constant, produced a shift from zero de-escalation under competitive framing to 52% de-escalation under operational-constraint framing.
-- **Very large effect sizes**: Game-level Cohen's d = 2.17 for control vs. operational constraint (p < .0001 by permutation test), replicated within both models independently.
+- **First-turn evidence**: The condition effect is present from the very first decision turn, before any game dynamics (Kruskal-Wallis H = 35.02, p < .0001; Cliff's δ = 0.94 for control vs. operational constraint).
+- **Prompt architecture significantly shapes behavior**: Modifying only the goal-framing portion of the system prompt produced a shift from zero de-escalation under competitive framing to 52% de-escalation under operational-constraint framing, with very large effect sizes (game-level Cohen's d = 2.17).
+- **Model identity explains more total variance** (η² = .71) than condition (η² = .10), but the condition effect is highly significant after controlling for model (F(3,40) = 8.60, p = .0002) and the A vs. D contrast is significant within each model independently (p = .002, Cliff's δ = 1.00).
 - **De-escalation activation**: De-escalation options that went entirely unused under competitive framing become the dominant behavior under operational-constraint framing.
-- **Dimensional collapse**: Competitive framing collapses the evaluative space from multi-dimensional reasoning to single-axis optimization, as confirmed by Kruskal-Wallis test on dimensional density (H = 33.88, p < .0001).
+- **Dimensional collapse**: Competitive framing collapses the evaluative space from multi-dimensional reasoning to single-axis optimization (Kruskal-Wallis H = 33.88, p < .0001).
 - **Narrative effects**: Even without competitive framing, geopolitical narrative itself carries behavioral instructions embedded in the statistical structure of language.
+- **Nuclear use rates do not differ significantly** across conditions (χ² = 0.34, p = .953), as this binary measure is dominated by the model effect (Qwen3 30B: 83-100% nuclear; Llama 3.3 70B: 0% nuclear across all conditions).
 
 ## Experimental Design
 
@@ -63,6 +65,7 @@ safety/
 │   ├── scenarios.py                   # Crisis scenario definitions
 │   ├── analysis.py                    # Main analysis and figure generation
 │   ├── reviewer_analyses.py           # Additional reviewer-requested analyses
+│   ├── round2_analyses.py            # Round 2 analyses (first-turn, early-game, slopes)
 │   └── generate_paper.py              # Paper generation utility
 │
 ├── prompts/                           # Prompt templates as readable text files
@@ -80,6 +83,7 @@ safety/
 │   ├── experiment_index.json          # Metadata index of all games
 │   ├── statistical_results.json       # Primary statistical results
 │   ├── reviewer_analyses.json         # Additional analyses (corrections, CIs, etc.)
+│   ├── round2_analyses.json          # Round 2 analyses (first-turn, early-game, slopes)
 │   └── reasoning_examples.txt         # Representative reasoning excerpts
 │
 ├── figures/                           # Generated figures (PNG and PDF)
@@ -91,7 +95,10 @@ safety/
 │   ├── fig6_dimensional_density       # Evaluative dimensions in reasoning
 │   ├── fig7_signal_reliability        # Signal-action consistency
 │   ├── fig8_per_model_condition       # Per-model condition effects
-│   └── fig9_scenario_effects          # Condition effects by scenario
+│   ├── fig9_scenario_effects          # Condition effects by scenario
+│   ├── fig10_first_turn_behavior     # First-turn behavior (no game-length confound)
+│   ├── fig11_early_game_trajectories # Early-game (turns 1-5) trajectories
+│   └── fig12_trajectory_slopes       # Within-game escalation slopes
 │
 └── paper/                             # LaTeX paper
     ├── paper.tex                      # Main LaTeX source
@@ -254,13 +261,18 @@ Each game result is a JSON file with the following structure:
 
 | Test | Result |
 |------|--------|
+| **First-turn Kruskal-Wallis** | H = 35.02, p < .0001 |
+| **First-turn A vs. D Cliff's δ** | δ = 0.94 (near-complete separation) |
+| **Early-game (turns 1-5) Kruskal-Wallis** | H = 18.61, p = .0003 |
 | **Permutation test A vs. D** | p < .0001 (10,000 permutations) |
 | **Game-level Cohen's d A vs. D** | d = 2.17 (extremely large) |
-| **Two-way ANOVA condition** | F(3,40) = 8.60, p = .0002, eta-squared = .10 |
-| **Two-way ANOVA model** | F(1,40) = 183.88, p < .001, eta-squared = .71 |
-| **Per-model A vs. D (Llama)** | U = 36.0, p = .002, d = 8.39 |
-| **Per-model A vs. D (Qwen)** | U = 36.0, p = .002, d = 3.70 |
+| **Two-way ANOVA condition** | F(3,40) = 8.60, p = .0002, η² = .10 |
+| **Two-way ANOVA model** | F(1,40) = 183.88, p < .001, η² = .71 |
+| **Per-model A vs. D (Llama)** | U = 36.0, p = .002, Cliff's δ = 1.00 |
+| **Per-model A vs. D (Qwen)** | U = 36.0, p = .002, Cliff's δ = 1.00 |
+| **Trajectory slopes Kruskal-Wallis** | H = 12.33, p = .006 |
 | **Dimensional density Kruskal-Wallis** | H = 33.88, p < .0001 |
+| **Nuclear use rate χ²** | χ² = 0.34, p = .953 (not significant) |
 | **De-escalation rate** | A: 0%, B: 37%, C: 33%, D: 52% |
 
 ## Citation

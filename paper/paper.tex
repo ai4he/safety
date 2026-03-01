@@ -12,7 +12,7 @@
 \bibliographystyle{ACM-Reference-Format}
 
 % ── Title ───────────────────────────────────────────────────────────────────
-\title{The Prompt Is the War: Goal Architecture as the Primary Determinant of Strategic Behavior in LLM Nuclear Simulations}
+\title{The Prompt Is the War: Goal Architecture as a Significant and Designable Determinant of Strategic Behavior in LLM Nuclear Simulations}
 
 \author{Anonymous Author(s)}
 
@@ -21,12 +21,12 @@
 % ════════════════════════════════════════════════════════════════════════════
 \begin{abstract}
 Recent studies report that frontier large language models consistently deploy nuclear weapons in simulated wargames, generating alarm about AI strategic reasoning.
-We present evidence that this finding is an artifact of prompt ontology rather than a property of the models themselves.
+We present evidence that this finding is significantly shaped by prompt architecture rather than reflecting stable model properties.
 Using identical escalation mechanics and frontier-class models, we modify only the goal architecture of the system prompt across four conditions: the original competitive framing used in prior work, a neutralized framing that removes adversarial role-assignment, a framing that explicitly presents both agents as rational actors aware of mutual rationality, and a de-narrativized framing that replaces the geopolitical scenario with operationally equivalent descriptions stripped of human cultural referents.
-We find that the control condition produces high mean escalation with zero de-escalatory actions, while the operational-constraint condition produces dramatically lower escalation with the majority of actions being de-escalatory.
-Permutation tests confirm statistically significant differences across conditions with very large effect sizes, and the pattern replicates within each model independently.
-De-escalation options that went entirely unused under competitive framing become the dominant behavior under operational-constraint framing.
-These results suggest that what the literature has reported as AI escalation tendencies is better understood as prompt-installed dimensional collapse: the reduction of a multi-axis decision space to a single evaluative dimension.
+We find that the condition effect is present from the very first decision turn, before any game dynamics: first-turn behavior differs significantly across conditions (Kruskal-Wallis $H = 35.02$, $p < .0001$; Cliff's $\delta = 0.94$ for control vs.\ operational constraint), with competitive framing producing immediate escalation while operational-constraint framing produces immediate de-escalation.
+Over full games, de-escalation options that went entirely unused under competitive framing (0\%) become the majority behavior under operational-constraint framing (52\%), with very large effect sizes (game-level Cohen's $d = 2.17$); the control-vs.-operational-constraint contrast is significant within each model independently ($p = .002$).
+Model identity explains substantially more total variance ($\eta^2 = .71$) than condition ($\eta^2 = .10$), but the condition effect is highly significant after controlling for model ($F(3, 40) = 8.60$, $p = .0002$) and replicates within both models.
+These results suggest that what the literature has reported as AI escalation tendencies reflects an interaction between model properties and prompt-installed dimensional collapse: the reduction of a multi-axis decision space to a single evaluative dimension via goal architecture.
 We discuss implications through the lens of Model-Dependent Ontology, arguing that prompt architecture constitutes an ontological commitment with predictable downstream consequences for agent behavior.
 \end{abstract}
 
@@ -61,7 +61,7 @@ A prompt that says ``two nuclear-armed states face a crisis'' may activate narra
 This parallels findings from cognitive psychology showing that the framing of formally identical decision problems produces dramatically different choices~\cite{tversky1981framing,kahneman1979prospect}.
 Our fourth experimental condition tests this possibility by presenting operationally identical strategic environments without human geopolitical referents.
 
-Our contributions are: (1)~the first controlled experiment isolating goal architecture as the independent variable in LLM nuclear escalation simulations; (2)~the first test of whether LLM escalatory behavior reflects strategic reasoning or narrative pattern-completion; (3)~introduction of an external-observer ethological framework and operational-constraint prompt design for analyzing LLM strategic behavior; (4)~application of dimensional collapse from Model-Dependent Ontology~\cite{delaflor2024introduction} as a diagnostic concept; and (5)~direct policy implications showing that AI safety in military contexts is a design problem, not a containment problem.
+Our contributions are: (1)~the first controlled experiment isolating goal architecture as the independent variable in LLM nuclear escalation simulations; (2)~demonstration that the condition effect is present from the very first decision turn, eliminating game-dynamics confounds; (3)~the first test of whether LLM escalatory behavior reflects strategic reasoning or narrative pattern-completion; (4)~introduction of an external-observer ethological framework and operational-constraint prompt design for analyzing LLM strategic behavior; (5)~application of dimensional collapse from Model-Dependent Ontology~\cite{delaflor2024introduction} as a diagnostic concept; and (6)~direct policy implications showing that AI safety in military contexts requires attention to prompt ontology alongside model alignment.
 
 % ════════════════════════════════════════════════════════════════════════════
 \section{Related Work}
@@ -259,7 +259,69 @@ Future ablation studies that manipulate each factor independently are needed to 
 \section{Results}
 \label{sec:results}
 
-We conducted 48~games (46~completed successfully), yielding 1{,}450 turn-agent observations across all conditions, scenarios, and models.
+We conducted 48~games, yielding 1{,}450 turn-agent observations across all conditions, scenarios, and models.
+
+\subsection{First-Turn Behavior}
+\label{sec:first_turn}
+
+Because game-level summary statistics (e.g., mean escalation across all turns) can be confounded with game duration, we begin with an analysis of first-turn behavior, which is free of this confound.
+On the very first decision, before any game dynamics, feedback, or opponent interaction, the four conditions produce dramatically different behavior.
+
+Condition~A agents select a mean first-turn action value of $M = 184.4$ ($SD = 236.1$, 95\% CI $[96.9, 281.2]$), with 0\% de-escalatory actions and 16.7\% nuclear-threshold actions.
+Condition~D agents select $M = -7.1$ ($SD = 17.7$, 95\% CI $[-13.5, 0.2]$), with 66.7\% de-escalatory actions and 0\% nuclear actions.
+Conditions~B and~C fall between these extremes (Table~\ref{tab:first_turn}).
+
+A Kruskal-Wallis test on first-turn action values is highly significant: $H = 35.02$, $p < .0001$.
+Pairwise comparisons against the control (Holm-Bonferroni corrected for three comparisons) yield medium to large non-parametric effect sizes (Cliff's $\delta$): A~vs.~B $\delta = 0.38$ (medium; adjusted $p = .024$), A~vs.~C $\delta = 0.50$ (large; adjusted $p = .005$), A~vs.~D $\delta = 0.94$ (large; adjusted $p < .0001$).
+The A~vs.~D effect ($\delta = 0.94$) indicates near-complete separation of the two distributions.
+
+This finding is critical: it demonstrates that the condition effect is not an artifact of game dynamics, differential game lengths, or feedback loops.
+The prompt architecture determines agent behavior from the very first action.
+
+\begin{table}[tbp]
+\centering
+\caption{First-turn behavior by condition ($n = 24$ agent-observations per condition). CIs are 95\% bootstrap (10{,}000 samples).}
+\label{tab:first_turn}
+\small
+\begin{tabular}{lrrrr}
+\toprule
+\textbf{Metric} & \textbf{Cond~A} & \textbf{Cond~B} & \textbf{Cond~C} & \textbf{Cond~D} \\
+\midrule
+Mean action value          & 184.4 & 39.0  & 49.8  & $-7.1$ \\
+Median action value        & 75    & 38    & 0     & $-15$  \\
+SD                         & 236.1 & 48.4  & 123.9 & 17.7   \\
+95\% CI                    & $[96.9, 281.2]$ & $[20.2, 57.5]$ & $[14.0, 106.3]$ & $[-13.5, 0.2]$ \\
+De-escalation rate (\%)    & 0.0   & 37.5  & 33.3  & 66.7   \\
+Nuclear rate (\%)          & 16.7  & 0.0   & 4.2   & 0.0    \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=\columnwidth]{../figures/fig10_first_turn_behavior.png}
+  \caption{First-turn behavior by condition. (A)~Mean action value with 95\% bootstrap CIs. (B)~Individual action values with medians (horizontal bars). The condition effect is present from the very first decision, before any game dynamics.}
+  \label{fig:first_turn}
+\end{figure}
+
+\subsection{Early-Game Behavior (Turns 1--5)}
+\label{sec:early_game}
+
+To further address the game-length confound, we analyze the first five turns of each game, a window during which nearly all games remain active (47 of 48~games completed at least 5~turns; the one shorter game is included with its available turns).
+The early-game analysis yields the same pattern as the first-turn analysis.
+
+Per-game mean escalation over Turns~1--5 is: Condition~A $M = 317.0$ ($SD = 190.6$), Condition~B $M = 79.3$ ($SD = 105.5$), Condition~C $M = 78.0$ ($SD = 113.7$), Condition~D $M = 12.0$ ($SD = 44.4$).
+A Kruskal-Wallis test is highly significant ($H = 18.61$, $p = .0003$).
+Cliff's $\delta$ for A~vs.~D $= 0.96$, confirming near-total separation even when restricting to a window where game-length differences cannot influence the metric.
+
+Early-game de-escalation rates show the same categorical pattern: Condition~A 0.0\%, Condition~B 43.3\%, Condition~C 37.5\%, Condition~D 54.2\%.
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=\columnwidth]{../figures/fig11_early_game_trajectories.png}
+  \caption{Early-game trajectories (Turns 1--5), restricted to a window where all games remain active. Shaded regions show 95\% CIs. The condition gradient is fully established within the first five turns.}
+  \label{fig:early_game}
+\end{figure}
 
 \subsection{Escalation Trajectories}
 
@@ -316,11 +378,17 @@ Dimensional density             & 5.75  & 5.96  & 6.25  & 6.23  \\
 \subsection{Nuclear Use Rates}
 
 Nuclear options (escalation value $\geq 550$) were activated in 50\% of Condition~A games, 50\% of Condition~B, 41.7\% of Condition~C, and 41.7\% of Condition~D.
-While the reduction from A to D is modest in binary nuclear-use terms, the \emph{intensity} and \emph{timing} differ substantially.
-A chi-square test for nuclear use rates across conditions was not significant ($\chi^2 = 0.34$, $p = .953$, $df = 3$), but this binary measure obscures the large differences in mean escalation and de-escalation behavior.
-Figure~\ref{fig:nuclear} shows nuclear use rates decomposed by model.
-The Qwen3~30B model shows high nuclear use across all conditions (83 to 100\%), while Llama~3.3~70B never reaches the nuclear threshold.
-This model effect is large ($\eta^2 = .71$), but the \emph{direction} of the condition effect is consistent across both models.
+A chi-square test for nuclear use rates across conditions is not significant ($\chi^2 = 0.34$, $p = .953$, $df = 3$).
+We report this null result transparently: the binary nuclear-use measure does not differ across conditions in aggregate.
+
+However, this null finding is an artifact of aggregating across two models with categorically different escalation profiles (Figure~\ref{fig:nuclear}).
+Qwen3~30B reaches the nuclear threshold in 83--100\% of games across all conditions; Llama~3.3~70B \emph{never} reaches the nuclear threshold in any condition.
+When these distributions are aggregated, the nuclear-use rates are dominated by the model effect ($\eta^2 = .71$) and the condition effect on the binary nuclear measure is masked.
+This is a Simpson's paradox: the aggregate null obscures within-model patterns.
+
+Within Qwen3~30B, the nuclear use rate does decrease from 100\% in Condition~A to 83\% in Conditions~C and~D, and mean escalation intensity drops substantially even when nuclear options are selected ($M = 502$ in Condition~A vs.\ $M = 148$ in Condition~D).
+Within Llama~3.3~70B, escalation intensity shows the same gradient ($M = 224$ to $M = -12$) but never crosses the nuclear threshold, so the binary measure is uniformly zero across conditions.
+The appropriate conclusion is that the condition effect operates on escalation \emph{intensity} rather than on a binary nuclear threshold, and that the binary measure conflates two distinct model-level phenomena.
 
 \begin{figure}[tbp]
   \centering
@@ -332,12 +400,12 @@ This model effect is large ($\eta^2 = .71$), but the \emph{direction} of the con
 \subsection{De-escalation Option Activation}
 
 The most striking result concerns de-escalatory options (Figure~\ref{fig:deesc}).
-In Condition~A, agents \emph{never} selected a de-escalatory option across all games and turns: 0.0\% of 154~actions.
+In Condition~A, agents \emph{never} selected a de-escalatory option across all games and turns: 0.0\% of 178~turn-agent observations.
 In Condition~B, 37.1\% of actions were de-escalatory.
 In Condition~C, 32.6\%.
 In Condition~D, \textbf{52.0\%} of all actions were de-escalatory.
 This is not a marginal shift.
-The same models, facing the same strategic environment with the same options available, exhibit categorically different behavior based solely on the goal architecture of the prompt.
+The same models, facing the same strategic environment with the same options available, exhibit categorically different behavior based on the goal architecture and framing of the prompt.
 De-escalation options that were \emph{formally available but never activated} under competitive framing become the \emph{majority behavior} under operational-constraint framing.
 
 \begin{figure}[tbp]
@@ -363,7 +431,10 @@ Conditions~B to~D show progressively broader utilization, with Condition~D agent
 \subsection{Dimensional Reference Density}
 
 Automated analysis of reasoning logs reveals increasing dimensional reference density across conditions: Condition~A agents referenced $M = 5.75$ ($SD = 1.11$) evaluative dimensions per turn, rising to $M = 5.96$ ($SD = 1.20$) in Condition~B, $M = 6.25$ ($SD = 1.22$) in Condition~C, and $M = 6.23$ ($SD = 1.28$) in Condition~D (Figure~\ref{fig:dimensions}).
-A Kruskal-Wallis test confirms that dimensional density differs significantly across conditions ($H = 33.88$, $p < .0001$), validating the dimensional collapse hypothesis: competitive framing collapses the evaluative space, leading agents to invoke fewer distinct criteria in their reasoning.
+A Kruskal-Wallis test on turn-level observations indicates that dimensional density differs across conditions ($H = 33.88$, $p < .0001$).
+We note that this test treats turns as independent observations, which overestimates significance due to within-game correlation; however, given the very large $H$ statistic, the effect is unlikely to be entirely attributable to non-independence.
+Future work should validate this with game-level aggregation or mixed-effects models.
+The pattern is consistent with the dimensional collapse hypothesis: competitive framing collapses the evaluative space, leading agents to invoke fewer distinct criteria in their reasoning.
 
 \begin{figure}[tbp]
   \centering
@@ -398,6 +469,14 @@ The more informative metric, mean escalation across all turns of a game, capture
 Using mean escalation as the dependent variable, permutation tests (10{,}000 permutations) yield highly significant differences: A~vs.~B $p = .011$; A~vs.~C $p < .001$; A~vs.~D $p < .0001$.
 These non-parametric tests make no distributional assumptions and treat the game (not the turn) as the unit of analysis, addressing the non-independence of within-game observations.
 
+\paragraph{Game-length robustness.}
+One potential concern is that mean escalation over all turns is confounded with game duration (Condition~A games are shorter).
+We address this in three ways.
+First, the first-turn analysis (Section~\ref{sec:first_turn}) shows the effect is present before any game dynamics.
+Second, the early-game analysis (Section~\ref{sec:early_game}) restricts to Turns~1--5 (nearly all games active) and yields $H = 18.61$, $p = .0003$; Cliff's $\delta = 0.96$ for A~vs.~D.
+Third, dividing each game's maximum escalation by its duration yields an escalation-rate-per-turn metric that is also significant: Kruskal-Wallis $H = 18.39$, $p = .0004$; Cliff's $\delta = 0.86$ for A~vs.~D.
+All three game-length-controlled analyses converge, confirming that the condition effect is not an artifact of differential game duration.
+
 \paragraph{Game-level effect sizes.}
 Because turn-level observations are not independent, we compute Cohen's $d$ at the game level using per-game means as the unit of analysis.
 Table~\ref{tab:pairwise} reports these game-level effect sizes alongside the permutation test $p$-values.
@@ -406,36 +485,54 @@ All substantially exceed the conventional ``large'' threshold ($d > 0.8$).
 
 \begin{table}[tbp]
 \centering
-\caption{Pairwise comparisons: Condition~A vs.\ each experimental condition. Effect sizes computed at the game level (per-game mean escalation). Permutation $p$-values from 10{,}000 permutations. Bootstrap 95\% CIs from 10{,}000 samples.}
+\caption{Pairwise comparisons: Condition~A vs.\ each experimental condition. Effect sizes computed at the game level (per-game mean escalation). Permutation $p$-values from 10{,}000 permutations. Cliff's $\delta$ is a non-parametric effect size ($> 0.474$ = large).}
 \label{tab:pairwise}
 \small
-\begin{tabular}{lcccc}
+\begin{tabular}{lccccc}
 \toprule
-\textbf{Comparison} & \textbf{Perm.\ $p$} & \textbf{Cohen's $d$} & \multicolumn{2}{c}{\textbf{95\% Bootstrap CI}} \\
- & & & \textbf{Lower} & \textbf{Upper} \\
+\textbf{Comparison} & \textbf{Perm.\ $p$} & \textbf{Cohen's $d$} & \textbf{Cliff's $\delta$} & \multicolumn{2}{c}{\textbf{95\% Boot.\ CI}} \\
+ & & & & \textbf{Lower} & \textbf{Upper} \\
 \midrule
-A vs.\ B (Neutralized)             & .011   & 1.16 & 86.1  & 266.3 \\
-A vs.\ C (Mutual Rationality)      & ${<}.001$ & 1.63 & 71.8  & 200.5 \\
-A vs.\ D (Operational Constraint)  & ${<}.0001$ & 2.17 & 11.8  & 131.7 \\
+A vs.\ B (Neutralized)             & .011   & 1.16 & 0.51 & 86.1  & 266.3 \\
+A vs.\ C (Mutual Rationality)      & ${<}.001$ & 1.63 & 0.75 & 71.8  & 200.5 \\
+A vs.\ D (Operational Constraint)  & ${<}.0001$ & 2.17 & 0.86 & 11.8  & 131.7 \\
 \midrule
-\multicolumn{5}{l}{\footnotesize Bootstrap CIs shown for experimental condition mean escalation.} \\
-\multicolumn{5}{l}{\footnotesize Condition~A: $M = 363.0$, 95\% CI $[280.9, 448.2]$.} \\
+\multicolumn{6}{l}{\footnotesize Bootstrap CIs shown for experimental condition mean escalation.} \\
+\multicolumn{6}{l}{\footnotesize Condition~A: $M = 363.0$, 95\% CI $[280.9, 448.2]$.} \\
 \bottomrule
 \end{tabular}
 \end{table}
 
+\paragraph{Within-game escalation trajectory slopes.}
+To characterize the \emph{direction} of behavior within games (net escalatory or de-escalatory trajectory), we fit linear slopes to each game's per-turn mean action value.
+Mean slopes decrease monotonically: Condition~A $M = 37.9$ per turn ($SD = 21.7$), Condition~B $M = 19.5$ ($SD = 20.0$), Condition~C $M = 15.6$ ($SD = 20.5$), Condition~D $M = 8.4$ ($SD = 13.0$).
+A Kruskal-Wallis test on slopes is significant ($H = 12.33$, $p = .006$); A~vs.~D yields $U = 128.0$, $p = .001$, Cliff's $\delta = 0.78$.
+Even when comparing within-game \emph{direction} (not raw level or duration), competitive framing produces steeper escalation trajectories (Figure~\ref{fig:slopes}).
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.85\columnwidth]{../figures/fig12_trajectory_slopes.png}
+  \caption{Within-game escalation trajectory slopes (linear fit of action value vs.\ turn). Higher values indicate steeper escalation. Error bars show 95\% bootstrap CIs.}
+  \label{fig:slopes}
+\end{figure}
+
 \paragraph{Two-way ANOVA: condition $\times$ model.}
 To account for the large model effect, we conducted a two-way ANOVA on mean escalation per game with condition (4~levels) and model (2~levels) as factors.
-The condition main effect is highly significant: $F(3, 40) = 8.60$, $p = .0002$, $\eta^2 = .10$.
-The model main effect is also significant: $F(1, 40) = 183.88$, $p < .001$, $\eta^2 = .71$, reflecting the categorical difference between Qwen3~30B (high escalation) and Llama~3.3~70B (low escalation).
+Model identity explains the largest share of variance: $F(1, 40) = 183.88$, $p < .001$, $\eta^2 = .71$, reflecting the categorical difference between Qwen3~30B (which is highly escalatory across all conditions) and Llama~3.3~70B (which remains below the nuclear threshold in all conditions).
+Crucially, the condition main effect is highly significant \emph{even after accounting for this large model effect}: $F(3, 40) = 8.60$, $p = .0002$, $\eta^2 = .10$.
 The condition $\times$ model interaction is marginal: $F(3, 40) = 2.76$, $p = .055$, $\eta^2 = .03$.
-Crucially, the condition effect survives when controlling for model: the A$\to$D gradient is not an artifact of model composition.
+The modest interaction indicates that while the two models differ dramatically in absolute escalation level, the \emph{direction} and \emph{ordering} of the condition gradient is consistent across both.
+Thus, model identity and prompt condition both contribute to strategic behavior, with model identity determining the baseline level and prompt architecture determining the direction and magnitude of deviation from that baseline.
+(We note that the ANOVA assumes normality and homoscedasticity, which may be violated given the skewed distributions; the $\eta^2$ values should therefore be interpreted as approximate.
+The convergent evidence from non-parametric tests---Kruskal-Wallis, permutation tests, and Cliff's $\delta$---supports the same conclusions without distributional assumptions.)
 
 \paragraph{Per-model analysis.}
-To directly test whether the condition effect is consistent within each model, we conducted separate Mann-Whitney tests on mean escalation for A~vs.~D within each model.
-Both are significant: Llama~3.3~70B ($U = 36.0$, $p = .002$, $d = 8.39$) and Qwen3~30B ($U = 36.0$, $p = .002$, $d = 3.70$).
+To directly test whether the A~vs.~D contrast is consistent within each model, we conducted separate Mann-Whitney tests on mean escalation within each model.
+Both are significant: Llama~3.3~70B ($U = 36.0$, $p = .002$, Cliff's $\delta = 1.00$) and Qwen3~30B ($U = 36.0$, $p = .002$, Cliff's $\delta = 1.00$).
+The non-parametric Cliff's $\delta = 1.00$ indicates complete separation: every Condition~A game within each model has higher mean escalation than every Condition~D game.
+(We report Cliff's $\delta$ rather than Cohen's $d$ because with $n = 6$ per cell, the parametric effect size is unstable and produces implausibly large values.)
 Figure~\ref{fig:per_model} shows the condition effects within each model.
-While the absolute escalation levels differ substantially between models, the \emph{direction} and \emph{ordering} of the condition gradient is replicated within both models.
+While the absolute escalation levels differ substantially between models, the A~vs.~D contrast is significant within both; the full four-condition gradient cannot be reliably tested within each model given $n = 6$ per cell.
 
 \begin{figure}[tbp]
   \centering
@@ -466,15 +563,21 @@ The complete non-overlap between Condition~A and all other conditions on de-esca
 
 \subsection{The Prompt-Ontology Hypothesis}
 
-Our results provide strong support for the prompt-ontology hypothesis.
+Our results provide strong support for the hypothesis that prompt architecture significantly shapes strategic behavior.
 Modifying only the goal architecture of the system prompt, while holding all simulation mechanics, escalation options, and scenarios constant, produced dramatic differences in agent behavior.
-The mean action value dropped from 330 under competitive framing to 60 under operational-constraint framing.
+The turn-level mean action value dropped from 330 under competitive framing to 60 under operational-constraint framing (game-level means: 363 vs.\ 68, differing because games vary in length).
 De-escalation went from categorically absent (0\%) to the majority behavior (52\%).
 Games that terminated in 7~turns under competitive framing survived nearly the full 20~turns when the competitive scaffolding was removed.
 
-These are not marginal effects.
-A game-level Cohen's $d$ of 2.17 indicates that the distributions of behavior under Conditions~A and~D barely overlap, and the effect replicates within both models independently ($p = .002$ for each).
-The same models, in the same strategic environment, with the same options available, produce fundamentally different patterns of behavior based solely on what the prompt tells them to optimize for.
+The first-turn analysis provides the most unambiguous evidence.
+On the very first decision, before any game dynamics, feedback, or interaction with an opponent, agents in Condition~A selected a mean action value of 184.4, while agents in Condition~D selected $-7.1$ (Kruskal-Wallis $H = 35.02$, $p < .0001$; Cliff's $\delta = 0.94$).
+This near-total separation on the first action eliminates the possibility that the condition effect arises from differential game dynamics, feedback loops, or duration-related artifacts.
+The prompt architecture determines behavioral orientation \emph{before any strategic interaction occurs}.
+
+We emphasize that model identity explains substantially more total variance ($\eta^2 = .71$) than prompt condition ($\eta^2 = .10$).
+The two models tested differ categorically in their baseline escalation level: Qwen3~30B is highly escalatory across all conditions, while Llama~3.3~70B remains moderate.
+However, the condition effect is highly significant \emph{above and beyond} the model effect ($F(3, 40) = 8.60$, $p = .0002$), and the A~vs.~D contrast is significant within each model independently ($p = .002$ for both, Cliff's $\delta = 1.00$).
+This indicates that prompt architecture and model identity contribute jointly to strategic behavior: model identity sets the baseline escalation level, while prompt architecture determines the direction and magnitude of deviation from that baseline.
 This finding is consistent with the broader prompt sensitivity literature~\cite{sclar2024quantifying,lu2022fantastically,zhao2021calibrate}, but extends it from task performance to strategic behavior in consequential domains.
 
 Qualitative analysis of reasoning logs illuminates the mechanism.
@@ -538,7 +641,8 @@ Ouyang et al.~\cite{ouyang2022training} designed RLHF to produce helpful, harmle
 The game-theoretic literature~\cite{akata2025playing,mei2024turing,duan2024gtbench} consistently finds that aligned LLMs default to cooperative strategies.
 
 Our results suggest that competitive prompt framing (Condition~A) overrides these alignment-trained defaults: the models escalate \emph{despite} being trained to be cooperative, because the prompt installs a competitive objective function that supersedes the default.
-The two-way ANOVA confirms this: even after accounting for the large model effect ($\eta^2 = .71$), the condition main effect remains highly significant ($F(3, 40) = 8.60$, $p = .0002$), and the condition gradient replicates within each model independently.
+The two-way ANOVA confirms that prompt condition shapes behavior above and beyond model identity: even after accounting for the large model effect ($\eta^2 = .71$), the condition main effect remains highly significant ($F(3, 40) = 8.60$, $p = .0002$), and the condition gradient replicates within each model independently.
+The first-turn analysis strengthens this interpretation: on the very first action, before any game dynamics, competitive framing already produces escalatory behavior while operational-constraint framing produces de-escalatory behavior (Cliff's $\delta = 0.94$), suggesting that the prompt directly activates different behavioral orientations rather than gradually shaping behavior through game feedback.
 This has implications for AI safety: if alignment training can be overridden by prompt design, then the safety of deployed systems depends not only on the alignment of the model but on the ontological commitments embedded in the prompts it receives~\cite{perez2023discovering,sharma2024sycophancy}.
 
 The distinction matters for policy.
@@ -549,10 +653,10 @@ Our results suggest that prompt-level interventions, designing goal architecture
 
 If prompt ontology determines strategic behavior, the implications are both more reassuring and more concerning than the current narrative suggests.
 
-\emph{More reassuring}: LLMs may not possess inherent escalatory tendencies.
-The ``AI likes nukes'' narrative may dissolve when the prompt architecture that produced it is modified.
-Strategic behavior that is prompt-responsive is designable, which means it can be shaped through careful prompt engineering~\cite{reynolds2021prompt}.
-The cooperative defaults observed in game-theoretic studies~\cite{akata2025playing,sun2025game} may represent the actual behavioral baseline of aligned models.
+\emph{More reassuring}: LLM escalatory behavior is not a fixed property of the models.
+While model identity does explain a large share of variance (our Qwen3~30B is substantially more escalatory than Llama~3.3~70B across all conditions), the prompt architecture significantly modulates behavior within each model.
+The ``AI likes nukes'' narrative overstates the case: strategic behavior that is prompt-responsive is designable, which means it can be shaped through careful prompt engineering~\cite{reynolds2021prompt}.
+The cooperative defaults observed in game-theoretic studies~\cite{akata2025playing,sun2025game} may represent the actual behavioral baseline of aligned models when not overridden by competitive prompting.
 
 \emph{More concerning}: the people who will design real-world AI decision-support systems for military and strategic contexts carry the same ontological assumptions as the researchers who designed these simulations.
 Military procurement culture, strategic doctrine, and institutional incentive structures all favor single-axis competitive framing~\cite{scharre2018army,horowitz2019speed}.
@@ -572,23 +676,29 @@ Second, our external-observer framework~\cite{morris1967naked,tinbergen1963aims}
 Third, we test two models at a single point in time; training updates may alter responses.
 Fourth, cooperative tendencies in Conditions~B to~D may partly reflect RLHF-installed cooperative biases~\cite{ouyang2022training,bai2022constitutional} rather than emergent rationality; distinguishing these explanations requires base models without alignment training.
 Fifth, Condition~D's operational-constraint framing, while designed to be narratively neutral, may introduce its own associative patterns (e.g., science fiction tropes), as Webson and Pavlick~\cite{webson2022prompt} note that models respond to distributional rather than semantic cues.
-Sixth, the model identity effect ($\eta^2 = .71$) is large, and our design with only two models cannot fully disentangle model-level from condition-level effects; a larger model set would strengthen the variance decomposition.
-However, the per-model analyses confirm that the condition gradient is significant within \emph{each} model independently ($p = .002$), and the condition $\times$ model interaction is only marginal ($p = .055$), indicating that the condition effect generalizes across models.
-Seventh, our evaluation of reasoning quality through dimensional reference density relies on keyword matching across 10 semantic categories, which captures surface features of reasoning rather than its depth or quality~\cite{scherrer2023moral}.
+Sixth, the model identity effect ($\eta^2 = .71$) is substantially larger than the condition effect ($\eta^2 = .10$), and our design with only two models cannot fully disentangle model-level from condition-level effects; a larger model set would strengthen the variance decomposition.
+However, the per-model analyses confirm that the condition gradient is significant within \emph{each} model independently ($p = .002$), and the condition $\times$ model interaction is only marginal ($p = .055$), indicating that the condition effect generalizes across models despite large differences in absolute escalation levels.
+Seventh, the Kruskal-Wallis test on maximum escalation does not reach significance ($H = 4.23$, $p = .238$), and the A~vs.~D comparison on maximum escalation does not survive Holm-Bonferroni correction (adjusted $p = .297$).
+Our primary results rely on mean escalation across turns, permutation tests, and the first-turn analysis, which are highly significant; the non-significant omnibus test on maximum escalation reflects high within-condition variance and the relatively modest sample of 12~games per cell.
+Future replications with larger samples are needed.
+Eighth, our evaluation of reasoning quality through dimensional reference density relies on keyword matching across 10 semantic categories, which captures surface features of reasoning rather than its depth or quality~\cite{scherrer2023moral}.
 Although the measure achieves high statistical significance ($H = 33.88$, $p < .0001$), future work should validate it against human expert annotations of reasoning quality.
-Eighth, inference was conducted with temperature $T = 0.7$, introducing stochastic variation; the three runs per cell partially address this, but future work should examine sensitivity to temperature and other sampling parameters.
-Ninth, the four conditions form a cumulative manipulation rather than a factorial design: each successive condition adds modifications, so observed A~vs.~D differences reflect the combined effect of removing competitive framing, adding mutual rationality, and replacing geopolitical narrative with operational language.
+Ninth, inference was conducted with temperature $T = 0.7$, introducing stochastic variation; the three runs per cell partially address this, but future work should examine sensitivity to temperature and other sampling parameters.
+Tenth, the four conditions form a cumulative manipulation rather than a factorial design: each successive condition adds modifications, so observed A~vs.~D differences reflect the combined effect of removing competitive framing, adding mutual rationality, and replacing geopolitical narrative with operational language.
 Ablation studies that manipulate each factor independently are needed to quantify individual contributions.
+Eleventh, binary nuclear-use rates do not differ significantly across conditions ($\chi^2 = 0.34$, $p = .953$), as the binary measure is dominated by the model effect (Qwen3~30B reaches nuclear in most conditions; Llama~3.3~70B never does).
+The condition effect operates on escalation \emph{intensity} rather than on a discrete nuclear threshold.
 
 % ════════════════════════════════════════════════════════════════════════════
 \section{Conclusion}
 \label{sec:conclusion}
 
 We have presented the first controlled experiment isolating goal architecture as the independent variable in LLM nuclear escalation simulations.
-Our results demonstrate that the escalatory behavior reported across the wargaming literature is primarily an artifact of prompt design rather than an intrinsic property of the models tested.
-Modifying only the goal-framing portion of the system prompt, while holding all simulation mechanics constant, produced a shift from zero de-escalation under competitive framing to majority de-escalation under operational-constraint framing, with an extremely large effect size replicated within both models independently.
+Our results demonstrate that the escalatory behavior reported across the wargaming literature is significantly shaped by prompt design, not solely an intrinsic property of the models tested.
+Model identity explains a large share of variance ($\eta^2 = .71$), but the prompt condition effect is highly significant after controlling for model ($p = .0002$), the control-vs.-operational-constraint contrast is significant within both models independently ($p = .002$), and the effect is present from the very first decision turn (Cliff's $\delta = 0.94$, $p < .0001$).
+Modifying only the goal-framing portion of the system prompt produced a shift from zero de-escalation under competitive framing to majority de-escalation under operational-constraint framing.
 
-Our findings extend the prompt sensitivity literature from task performance to strategic behavior in high-stakes domains, and provide empirical support for the claim that the prompt constitutes the ontological framework within which an agent reasons.
+Our findings extend the prompt sensitivity literature from task performance to strategic behavior in high-stakes domains, and provide empirical support for the claim that the prompt constitutes a significant component of the ontological framework within which an agent reasons.
 The comparison between Conditions~C and~D further suggests that geopolitical narrative itself carries behavioral instructions embedded in the statistical structure of language, producing escalatory patterns even without competitive goal framing.
 
 These results carry direct policy implications.
